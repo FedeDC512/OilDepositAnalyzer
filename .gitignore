@@ -31,3 +31,4 @@
 *.out
 *.app
 src/output/*
+src/main
