@@ -10,8 +10,9 @@ struct Node {
 };
 
 int main() {
-    ifstream input("input.txt");
-    // "auto" permette al compilatore di dedurre automaticamente il tipo di una variabile
+    //ifstream input("input.txt");
+    ifstream input("C:\\Users\\fedea\\repos\\lab_alg_unipa\\src\\input.txt");
+
     auto mat = parseFileToMatrix(input);
 
     cout << "Matrice letta dal file:" << endl;
@@ -29,11 +30,14 @@ int main() {
     // 4. Se il nodo non è presente a nessuna delle liste di adiacenza, allora aggiungilo alla lista generale
     // 5. Conto il numero di elementi nella lista generale e ottengo il numero di giacimenti
 
-    vector<Node> adjList;
+    vector<Node*> adjList; // Cambiato a vector di puntatori a Node
     for (int i = 0; i < mat.size(); i++) {
         for (int j = 0; j < mat[i].size(); j++) {
             if (mat[i][j] == 1) {
-                Node node = { i, j, nullptr };
+                Node* node = new Node{i, j, nullptr};
+                Node* nodePtr = node;
+
+                // I cicli for controllano mat[i-1][j-1], mat[i][j-1], mat[i+1][j-1], mat[i-1][j], mat[i+1][j], mat[i-1][j+1], mat[i][j+1], mat[i+1][j+1]
                 for (int di = -1; di <= 1; di++) {
                     for (int dj = -1; dj <= 1; dj++) {
                         // Salta la posizione corrente
@@ -41,12 +45,15 @@ int main() {
 
                         int ni = i + di, nj = j + dj;
 
-                        // Controlla se la posizione è valida
+                        // Controlla se la posizione è valida, cioè dentro la matrice
                         if (ni >= 0 && ni < mat.size() && nj >= 0 && nj < mat[i].size()) {
-                            Node son = { ni, nj, nullptr };
-                            //cout << "Aggiungo nodo (" << ni << ", " << nj << ") a (" << i << ", " << j << ")" << endl;
-                            node.next = &son;
-                            node = *node.next;
+                            // Se il nodo adiacente contiene un 1, lo aggiunge alla lista di adiacenza
+                            if (mat[ni][nj] == 1) {
+                                Node* neighbor = new Node{ni, nj, nullptr};
+                                //cout << "Aggiungo nodo (" << ni << ", " << nj << ") a (" << i << ", " << j << ")" << endl;
+                                nodePtr->next = neighbor;
+                                nodePtr = nodePtr->next;
+                            }
                         }
                     }
                 }
@@ -55,14 +62,13 @@ int main() {
         }
     }
 
-    cout << "Lista di adiacenza:" << endl;
+    cout << endl << "Lista di adiacenza:" << endl;
     for (int i = 0; i < adjList.size(); i++) {
-        cout << "Nodo " << i << ": ";
-        Node current = adjList[i];
-        cout << "(" << current.x << ", " << current.y << ") ";
-        while (current.next != nullptr) { // non funziona, è sempre null
-            cout << "(" << current.x << ", " << current.y << ") ";
-            current = *current.next;
+        Node* current = adjList[i];
+        cout << "Nodo (" << current->x << ", " << current->y << "): ";
+        while (current->next != nullptr) {
+            current = current->next;
+            cout << "(" << current->x << ", " << current->y << ") ";
         }
         cout << endl;
     }
