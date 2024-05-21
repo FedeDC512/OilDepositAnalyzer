@@ -10,8 +10,7 @@ struct Node {
 };
 
 int main() {
-    //ifstream input("input.txt");
-    ifstream input("C:\\Users\\fedea\\repos\\lab_alg_unipa\\src\\input.txt");
+    ifstream input("input.txt");
 
     auto mat = parseFileToMatrix(input);
 
@@ -30,14 +29,14 @@ int main() {
     // 4. Se il nodo non è presente a nessuna delle liste di adiacenza, allora aggiungilo alla lista generale
     // 5. Conto il numero di elementi nella lista generale e ottengo il numero di giacimenti
 
-    vector<Node*> adjList; // Cambiato a vector di puntatori a Node
+    vector<Node*> adjList;
     for (int i = 0; i < mat.size(); i++) {
         for (int j = 0; j < mat[i].size(); j++) {
             if (mat[i][j] == 1) {
                 Node* node = new Node{i, j, nullptr};
                 Node* nodePtr = node;
 
-                // I cicli for controllano mat[i-1][j-1], mat[i][j-1], mat[i+1][j-1], mat[i-1][j], mat[i+1][j], mat[i-1][j+1], mat[i][j+1], mat[i+1][j+1]
+                // I cicli for controllano i nodi adiacenti al nodo corrente
                 for (int di = -1; di <= 1; di++) {
                     for (int dj = -1; dj <= 1; dj++) {
                         // Salta la posizione corrente
