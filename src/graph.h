@@ -1,84 +1,72 @@
 #include <iostream>
-#include <fstream>
 #include <vector>
 
 using namespace std;
 
-struct GraphNode {
-    int x, y;
-    GraphNode* next;
+struct Node {
+    int x, y, id;
+    Node* next;
 };
 
 class Graph {
 private:
-    int numV = 0; // Numero di vertici
-    int numE = 0; // Numero di archi
-    vector<GraphNode> adjList; // Lista delle adiacenze
+    vector<Node*> adjList; // TODO: meglio questo o un vector<vector<node/int>>
 
 public:
-    Graph(vector<vector<int>> input, int vxs) {
-        numV = vxs;
-        adjList = vector<GraphNode>(vxs);
-        for (int i = 0; i < input.size(); i++) {
-            for (int j = 0; j < input[i].size(); j++) {
-                if (input[i][j] == 1) {
-                    // Crea il primo nodo con i dati i e j
-                    // Poi vede i suoi collegamenti, e li salva come next del Graphnode
-                    // Infine salva nella con il pushback nel vector
-                    GraphNode node = { i, j, nullptr };
-                    adjList.push_back(node);
-                    addEdge(&adjList[i], i, j);
-                    numE++;
+    Graph(vector<vector<int>> mat) {
+        int id = 0; 
+        for (int i = 0; i < mat.size(); i++) { // Scorriamo le righe
+            for (int j = 0; j < mat[i].size(); j++) { // Scorriamo le colonne
+                if (mat[i][j] == 1) { // Se 
+                    Node* node = new Node { i, j, id, nullptr }; // Creiamo un nodo con i dati
+                    id++;
+                    adjList.push_back(node); // Lo aggiungiamo alla lista di adiacenza
+                }
+            }
+        }
+
+        for (Node* n : adjList) {
+            Node* nodePtr = n;
+            // I cicli for controllano i nodi adiacenti al nodo corrente
+            for (int di = -1; di <= 1; di++) {
+                for (int dj = -1; dj <= 1; dj++) {
+                    // Salta la posizione corrente
+                    if (di == 0 && dj == 0) continue;
+
+                    int ni = n->x + di, nj = n->y + dj;
+
+                    // Controlla se la posizione è valida, cioè dentro la matrice
+                    if (ni >= 0 && ni < mat.size() && nj >= 0 && nj < mat[n->x].size()) {
+                        // Se il nodo adiacente contiene un 1, lo aggiunge alla lista di adiacenza
+                        if (mat[ni][nj] == 1) {
+                            Node* neighbor = new Node { ni, nj, getNodeId(ni, nj), nullptr };
+                            //cout << "Aggiungo nodo (" << ni << ", " << nj << ") a (" << i << ", " << j << ")" << endl;
+                            nodePtr->next = neighbor;
+                            nodePtr = nodePtr->next;
+                        }
+                    }
                 }
             }
         }
     }
 
-    void addEdge(GraphNode* node, int x, int y) {
-        GraphNode newNode = { x, y, node };
-        node = &newNode;
-    }
-
-    // Metodo per verificare se due vertici sono adiacenti
-    bool isAdjacent(int v, int u) {
-        return false;
-    }
-
-    // Metodo per ottenere i vicini di un nodo v
-    vector<GraphNode> getNeighbors(int v) {
-        vector<GraphNode> neighbors;
-        GraphNode* current = &adjList[v];
-        while (current != nullptr) {
-            neighbors.push_back(*current);
-            current = current->next;
+    int getNodeId(int x, int y) { // TODO: ottimizza con #algorithm
+        for (Node* n : adjList) {
+            if (n->x == x && n->y == y) {
+                return n->id;
+            }
         }
-        return neighbors;
+        return -1;
     }
-
-    // Metodo per calcolare il grado di un nodo v
-    int getDegree(GraphNode* node) {
-        int len = 0;
-        GraphNode* current = node;
-        while (current != nullptr) {
-            len++;
-            current = current->next;
-        }
-        return len;
-    }
-
-    // Metodo per stampare il grafo
+    
     void printGraph() {
-        cout << "Ha " << numV << " vertici e " << numE << " archi" << endl;
-        if (numE == 0) {
-            cout << "Il grafo è vuoto." << endl;
-            return;
-        }
-        // Stampo la lista delle adiacenze
-        for (int i = 0; i < numV; i++) {
-            GraphNode* current = &adjList[i];
-            while (current != nullptr) {
-                cout << "(" << current->x << ", " << current->y << ")";
+        cout << endl << "Lista di adiacenza:" << endl;
+        for (int i = 0; i < adjList.size(); i++) {
+            Node* current = adjList[i];
+            cout << "Nodo[" << current->id << "](" << current->x << ", " << current->y << ") -> ";
+            while (current->next != nullptr) {
                 current = current->next;
+                cout << "[" << current->id << "](" << current->x << ", " << current->y << ") - ";
             }
             cout << endl;
         }
