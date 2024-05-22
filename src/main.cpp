@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "utils.h"
-#include "graph.h"
+#include "depthFirstSearch.h"
 
 using namespace std;
 
@@ -21,5 +21,9 @@ int main() {
 
     Graph graph(mat);
 
-    graph.printGraph();
+    graph.print();
+
+    DepthFirstSearch dfs(graph, 0);
+    
+    //dfs.print();
 }
