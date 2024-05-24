@@ -9,21 +9,38 @@ int main() {
     ifstream input("input.txt");
     //ifstream input("C:\\Users\\fedea\\repos\\lab_alg_unipa\\src\\input.txt");
 
-    auto mat = parseFileToMatrix(input);
+    int choice;
+    cout << "Scegli un'opzione:\n1. Leggi da file\n2. Crea una matrice casuale\n3. Esci\nScelta: ";
+    cin >> choice;
 
-    cout << "Matrice letta dal file:" << endl;
-    for (int i = 0; i < mat.size(); i++) {
-        for (int j = 0; j < mat[i].size(); j++) {
-            cout << mat[i][j] << " ";
-        }
-        cout << endl;
+    vector<vector<int>> mat;
+
+    switch (choice) {
+        case 1:
+            mat = parseFileToMatrix(input);
+            break;
+        case 2:
+            int rows, cols;
+            cout << "Di quante righe e colonne vuoi la matrice? (es. 5 5)" << endl;
+            cin >> rows >> cols;
+            if (rows < 1 || rows > 100 || cols < 1 || cols > 100) {
+                cout << "Inserisci valori validi" << endl;
+                return 1;
+            }
+            mat = createRandomMatrix(rows, cols);
+            break;
+        default:
+            return 1;
+            break;
     }
 
-    Graph graph(mat);
+    cout << endl << "Regione di terreno:" << endl;
+    printMatrix(mat);
 
-    graph.print();
+    Graph graph(mat);
+    //graph.print();
 
     DepthFirstSearch dfs(graph);
-    int trees = dfs.findTrees();
-    cout << "Numero di alberi: " << trees << endl;
+    int trees = dfs.findTrees(true);
+    cout << endl << "Numero di giacimenti: " << trees << endl;
 }

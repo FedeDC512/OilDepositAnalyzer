@@ -4,44 +4,52 @@
 using namespace std;
 
 struct Node {
-    int x, y, id;
+    int x, y, id; // Coordinata x, coordinata y, ID del nodo
 };
 
 class Graph {
 private:
-    vector<Node*> nodes;
-    vector<vector<int>> adjList; // TODO: meglio questo o un vector<Node*> con liste
+    vector<Node*> nodes; // Lista dei nodi con le loro coordinate e id
+    vector<vector<int>> adjList; // Lista di adiacenza
+
+    /**
+     * Restituisce le coordinate del nodo specificato.
+     * @param id L'ID del nodo di cui trovare le coordinate.
+     * @return Le coordinate del nodo specificato.
+     */
+    string getXY(int id) {
+        auto node = nodes[id];
+        return "(" + to_string(node->x) + "," + to_string(node->y) +")";
+    }
 
 public:
+    /**
+     * Costruisce un grafo non orientato a partire da una matrice di adiacenza.
+     * @param mat La matrice di adiacenza.
+     */
     Graph(vector<vector<int>> mat) {
         // Riempiamo il vettore nodes con i dati dei nodi per sapere la loro posizione identificandoli
         int id = 0; 
-        for (int i = 0; i < mat.size(); i++) { // Scorriamo le righe
-            for (int j = 0; j < mat[i].size(); j++) { // Scorriamo le colonne
-                if (mat[i][j] == 1) { // Se 
+        for (int i = 0; i < mat.size(); i++) {
+            for (int j = 0; j < mat[i].size(); j++) { 
+                if (mat[i][j] == 1) { // Se il nodo contiene un 1
                     Node* node = new Node { i, j, id++ }; // Creiamo un nodo con i dati
-                    nodes.push_back(node); // Lo aggiungiamo alla lista di adiacenza
+                    nodes.push_back(node); // Lo aggiungiamo alla lista dei nodi
                 }
             }
         }
 
-        // Inizializziamo la lista di adiacenza
-        adjList.resize(nodes.size());
+        adjList.resize(nodes.size()); // Inizializziamo la lista di adiacenza
 
-        // Riempiamo la lista di adiacenze
-        for (Node* n : nodes) {
-            // I cicli for controllano i nodi adiacenti al nodo corrente
-            for (int di = -1; di <= 1; di++) {
+        for (Node* n : nodes) { // Riempiamo la lista di adiacenze
+            for (int di = -1; di <= 1; di++) { // Controlliamo i nodi adiacenti al nodo corrente
                 for (int dj = -1; dj <= 1; dj++) {
-                    // Salta la posizione corrente
-                    if (di == 0 && dj == 0) continue;
+                    if (di == 0 && dj == 0) continue; // Salta la posizione corrente
 
-                    int ni = n->x + di, nj = n->y + dj;
+                    int ni = n->x + di, nj = n->y + dj; // Calcola la posizione del nodo adiacente
 
-                    // Controlla se la posizione è valida, cioè dentro la matrice
-                    if (ni >= 0 && ni < mat.size() && nj >= 0 && nj < mat[n->x].size()) {
-                        // Se il nodo adiacente contiene un 1, lo aggiunge alla lista di adiacenza
-                        if (mat[ni][nj] == 1) {
+                    if (ni >= 0 && ni < mat.size() && nj >= 0 && nj < mat[n->x].size()) { // Controlla se la posizione è valida, cioè dentro la matrice
+                        if (mat[ni][nj] == 1) { // Se il nodo adiacente contiene un 1, lo aggiunge alla lista di adiacenza
                             addEdge(n->id, getNodeId(ni, nj));
                         }
                     }
@@ -50,11 +58,21 @@ public:
         }
     }
 
+    /**
+     * Restituisce la dimensione del grafo.
+     * @return La dimensione del grafo.
+     */
     int size() {
         return nodes.size();
     }
 
-    int getNodeId(int x, int y) { // TODO: ottimizza con #algorithm
+    /**
+     * Restituisce l'ID del nodo corrispondente alle coordinate specificate.
+     * @param x La coordinata x del nodo.
+     * @param y La coordinata y del nodo.
+     * @return L'ID del nodo corrispondente alle coordinate specificate, o -1 se non viene trovato alcun nodo corrispondente.
+     */
+    int getNodeId(int x, int y) {
         for (Node* n : nodes) {
             if (n->x == x && n->y == y) {
                 return n->id;
@@ -63,19 +81,27 @@ public:
         return -1;
     }
 
-    void addEdge(int v, int u){
+    /**
+     * Aggiunge il nodo `u` alla lista di adiacenza di `v`.
+     * @param v L'ID del nodo di partenza.
+     * @param u L'ID del nodo di arrivo.
+     */
+    void addEdge(int v, int u) {
         adjList[v].push_back(u);
     }
 
+    /**
+     * Restituisce i nodi adiacenti al nodo specificato.
+     * @param id L'ID del nodo di cui trovare i vicini.
+     * @return Il vettore di nodi adiacenti al nodo specificato.
+     */
     vector<int> getNeighbours(int id) {
         return adjList[id];
     }
-
-    string getXY(int id) {
-        auto node = nodes[id];
-        return "(" + to_string(node->x) + "," + to_string(node->y) +")";
-    }
     
+    /**
+     * Stampa la lista di adiacenza.
+     */
     void print() {
         cout << "Lista di adiacenza:" << endl;
         for (int i = 0; i < adjList.size(); i++) {
