@@ -6,8 +6,8 @@
 using namespace std;
 
 int main() {
-    //ifstream input("input.txt");
-    ifstream input("C:\\Users\\fedea\\repos\\lab_alg_unipa\\src\\input.txt");
+    ifstream input("input.txt");
+    //ifstream input("C:\\Users\\fedea\\repos\\lab_alg_unipa\\src\\input.txt");
 
     auto mat = parseFileToMatrix(input);
 
@@ -23,7 +23,7 @@ int main() {
 
     graph.print();
 
-    DepthFirstSearch dfs(graph, 0);
-    
-    //dfs.print();
+    DepthFirstSearch dfs(graph);
+    int trees = dfs.findTrees();
+    cout << "Numero di alberi: " << trees << endl;
 }
