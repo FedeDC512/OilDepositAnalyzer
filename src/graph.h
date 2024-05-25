@@ -28,21 +28,21 @@ public:
      * @param mat La matrice di adiacenza.
      */
     Graph(vector<vector<int>> mat) {
-        // Riempiamo il vettore nodes con i dati dei nodi per sapere la loro posizione identificandoli
+        // Riempie il vettore nodes con i dati dei nodi per sapere la loro posizione identificandoli
         int id = 0; 
         for (int i = 0; i < mat.size(); i++) {
             for (int j = 0; j < mat[i].size(); j++) { 
                 if (mat[i][j] == 1) { // Se il nodo contiene un 1
-                    Node* node = new Node { i, j, id++ }; // Creiamo un nodo con i dati
-                    nodes.push_back(node); // Lo aggiungiamo alla lista dei nodi
+                    Node* node = new Node { i, j, id++ }; // Crea un nodo con i dati
+                    nodes.push_back(node); // E lo aggiunge alla lista dei nodi
                 }
             }
         }
 
-        adjList.resize(nodes.size()); // Inizializziamo la lista di adiacenza
+        adjList.resize(nodes.size()); // Inizializza la lista di adiacenza
 
-        for (Node* n : nodes) { // Riempiamo la lista di adiacenze
-            for (int di = -1; di <= 1; di++) { // Controlliamo i nodi adiacenti al nodo corrente
+        for (Node* n : nodes) { // Riempie la lista di adiacenza
+            for (int di = -1; di <= 1; di++) { // Controlla i nodi adiacenti al nodo corrente
                 for (int dj = -1; dj <= 1; dj++) {
                     if (di == 0 && dj == 0) continue; // Salta la posizione corrente
 

@@ -45,7 +45,7 @@ public:
 
                 dfs(graph, i);
 
-                /* Nella stampa all'interno di dfs() non vengono considerati i nodi senza vicini percio' li stampo qui con un if
+                /* Nella stampa all'interno di dfs() non vengono considerati i nodi senza vicini percio' li stampa qui con un if
                 int neighbours = graph.getNeighbours(i).size();
                 if (neighbours == 0) {
                     cout << i;
