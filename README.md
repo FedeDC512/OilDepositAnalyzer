@@ -4,4 +4,4 @@ Svolto per il corso di Laboratorio di Algoritmi, tenuto nell'anno accademico _20
 
 _**A cura di [@zAlweNy26](https://github.com/zAlweNy26) e [@FedeDC512](https://github.com/FedeDC512).**_
 
-> Visiona la relazione [qui](Relazione.pdf).
+> Visiona la relazione [qui](Relazione.md).
