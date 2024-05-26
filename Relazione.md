@@ -1,14 +1,13 @@
 # Relazione Tecnica sul Progetto in C++
 
-<div style="display: flex; gap: 2rem; justify-content: center; align-items: center;">
-<img src="https://www.unipa.it/servizi/iniziativeculturalisociali/.content/immagini/immagini_Badami/unipa_logotipo-verticale-a-colori.png" style="height: 14rem; backgound-color: white"/>
-<p style="white-space: break-spaces;">
-<strong><i>Università degli Studi di Palermo</i></strong>
-Corso di Laurea in Informatica
-Esame di "Laboratorio di Algoritmi"
-A.A. 2023/2024
-Docente: Manuela Flores
-Relazione della prova pratica - 31 Maggio 2024
+<div align="center">
+<img src="https://survey.unipa.it/tmp/assets/af617fb7/logo-unipa-2020.png" height="192"/>
+<br>
+<p>
+Corso di Laurea in Informatica<br>
+Esame di "Laboratorio di Algoritmi"<br>
+A.A. 2023/2024 - Docente: Manuela Flores<br>
+Relazione della prova pratica - 31 Maggio 2024<br>
 <strong><i>Agnello Federico, Nicosia Daniele</i></strong>
 </p>
 </div>
@@ -80,9 +79,11 @@ L'algoritmo DFS visita tutti i nodi di un giacimento connessi, marcandoli come v
 
 L'algoritmo è corretto in quanto esplora completamente ogni componente connesso del grafo utilizzando il DFS in tempo proporzionale alla somma dei loro gradi. La funzione `dfs` visita ricorsivamente tutti i nodi connessi a partire da un nodo iniziale, assicurando che ogni giacimento sia conteggiato una sola volta. La funzione `findTrees` itera su tutti i nodi del grafo e inizia una nuova DFS ogni volta che trova un nodo non visitato, incrementando il contatore dei giacimenti.
 
-<!--TEOREMA: DFS esegue la marcatura di tutti i vertici connessi ad una sorgente s in tempo proporzionale alla somma dei loro gradi.
-DIMOSTRAZIONE: L’algoritmo trova i vertici seguendo archi a partire da s e quindi, se w è marcato allora è connesso ad s. D’altra parte, se w è connesso ad s allora risulta marcato: se non fosse marcato, ogni cammino da s (che è marcato) a w avrebbe un arco da un nodo marcato v a un nodo non marcato x, ma l’algoritmo lo avrebbe trovato e marcato. La marcatura assicura che ogni vertice connesso a s è visitato una volta, e il controllo di marcatura richiede tempo proporzionale al grado.
-OSSERVAZIONE: Se tutti i vertici sono connessi a s, allora il tempo è proporzionale ad |E|. Il tempo totale della visita DFS è O(n + Σv∈V deg(v)) = O(n + m)-->
+<!--
+- **TEOREMA:** DFS esegue la marcatura di tutti i vertici connessi ad una sorgente s in tempo proporzionale alla somma dei loro gradi.
+- **DIMOSTRAZIONE:** L’algoritmo trova i vertici seguendo archi a partire da s e quindi, se w è marcato allora è connesso ad s. D’altra parte, se w è connesso ad s allora risulta marcato: se non fosse marcato, ogni cammino da s (che è marcato) a w avrebbe un arco da un nodo marcato v a un nodo non marcato x, ma l’algoritmo lo avrebbe trovato e marcato. La marcatura assicura che ogni vertice connesso a s è visitato una volta, e il controllo di marcatura richiede tempo proporzionale al grado.
+- **OSSERVAZIONE:** Se tutti i vertici sono connessi a s, allora il tempo è proporzionale ad |E|. Il tempo totale della visita DFS è $O(n + \sum_{v\in V}\space deg(v)) = O(n + m)$
+-->
 
 ## Complessità Temporale e Spaziale
 
