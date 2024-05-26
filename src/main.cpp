@@ -1,14 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
-#include "utils.h"
-#include "depthFirstSearch.h"
+#include "utils/utils.h"
+#include "graph/graph.h"
+#include "dfs/dfs.h"
 
 using namespace std;
 
 int main() {
-    string path = "C:\\Users\\fedea\\repos\\lab_alg_unipa\\src\\inputs\\"; // Windows path
-    //string path = "inputs/"; // Linux path
+    #ifdef _WIN32
+        string path = "..\\inputs\\"; // Windows path
+    #else
+        string path = "../inputs/"; // Unix or macOS path
+    #endif
 
     int choice;
     cout << "Scegli un'opzione:\n1. Leggi file di esempio\n2. Usa un tuo file\n3. Crea una matrice casuale\n4. Esci\nScelta: ";
