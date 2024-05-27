@@ -77,13 +77,9 @@ L'algoritmo DFS visita tutti i nodi di un giacimento connessi, marcandoli come v
 
 ## Correttezza dell'Algoritmo
 
-L'algoritmo è corretto in quanto esplora completamente ogni componente connesso del grafo utilizzando il DFS in tempo proporzionale alla somma dei loro gradi. La funzione `dfs` visita ricorsivamente tutti i nodi connessi a partire da un nodo iniziale, assicurando che ogni giacimento sia conteggiato una sola volta. La funzione `findTrees` itera su tutti i nodi del grafo e inizia una nuova DFS ogni volta che trova un nodo non visitato, incrementando il contatore dei giacimenti.
+Il teorema del Depth First Search (DFS) afferma che l'algoritmo marca tutti i vertici connessi a una sorgente $s$ in tempo proporzionale alla somma dei loro gradi. Questo è dimostrato dal fatto che l'algoritmo trova i vertici seguendo archi a partire da $s$; se un vertice $w$ è marcato, allora è connesso a $s$. Viceversa, se $w$ è connesso a $s$, risulterà marcato: se non fosse così, ogni cammino da $s$ (che è marcato) a $w$ avrebbe un arco da un nodo marcato $v$ a un nodo non marcato $x$, ma l'algoritmo avrebbe trovato e marcato $x$. La marcatura assicura che ogni vertice connesso a $s$ è visitato una volta, e il controllo di marcatura richiede tempo proporzionale al grado. In pratica, se tutti i vertici sono connessi a $s$, allora il tempo è proporzionale a $|E|$, dove $E$ è il numero di archi. Il tempo totale della visita DFS è $O(n + \sum_{v\in V} \space deg(v)) = O(n + m)$, dove $n$ è il numero di nodi e $m$ è il numero di archi.
 
-<!--
-- **TEOREMA:** DFS esegue la marcatura di tutti i vertici connessi ad una sorgente s in tempo proporzionale alla somma dei loro gradi.
-- **DIMOSTRAZIONE:** L’algoritmo trova i vertici seguendo archi a partire da s e quindi, se w è marcato allora è connesso ad s. D’altra parte, se w è connesso ad s allora risulta marcato: se non fosse marcato, ogni cammino da s (che è marcato) a w avrebbe un arco da un nodo marcato v a un nodo non marcato x, ma l’algoritmo lo avrebbe trovato e marcato. La marcatura assicura che ogni vertice connesso a s è visitato una volta, e il controllo di marcatura richiede tempo proporzionale al grado.
-- **OSSERVAZIONE:** Se tutti i vertici sono connessi a s, allora il tempo è proporzionale ad |E|. Il tempo totale della visita DFS è $O(n + \sum_{v\in V}\space deg(v)) = O(n + m)$
--->
+Applicando questo teorema al nostro problema, la funzione `dfs` visita ricorsivamente tutti i nodi connessi a partire da un nodo iniziale, assicurando che ogni giacimento petrolifero sia conteggiato una sola volta. La funzione `findTrees`, ogni volta che individua un nuovo nodo non visitato, avvia una nuova DFS per esplorare il giacimento corrispondente, incrementando il contatore dei giacimenti. Questo approccio assicura che ogni giacimento sia conteggiato esattamente una volta, garantendo la correttezza dell'algoritmo nella determinazione del numero totale di giacimenti petroliferi.
 
 ## Complessità Temporale e Spaziale
 
