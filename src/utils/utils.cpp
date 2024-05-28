@@ -53,11 +53,15 @@ vector<vector<int>> createRandomMatrix(int rows, int cols) {
 void printMatrix(vector<vector<int>> mat) {
     for (size_t i = 0; i < mat.size(); i++) { 
         for (size_t j = 0; j < mat[i].size(); j++) {
-            if (mat[i][j] == 1) {
-                cout << "■ ";
-            } else {
-                cout << "□ ";
-            }
+            #ifdef _WIN32
+                cout << mat[i][j] << " ";
+            #else
+                if (mat[i][j] == 1) {
+                    cout << "■ ";
+                } else {
+                    cout << "□ ";
+                }
+            #endif
         }
         cout << endl;
     }

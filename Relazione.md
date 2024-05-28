@@ -14,13 +14,13 @@ Relazione della prova pratica - 31 Maggio 2024<br>
 
 ## Introduzione
 
-Il progetto sviluppato consiste in un programma C++ per determinare il numero di giacimenti petroliferi in una regione rettangolare di terreno. La regione è divisa in appezzamenti quadrati, e un appezzamento può contenere petrolio (indicato con '@'). Due appezzamenti contenenti petrolio sono considerati parte dello stesso giacimento se sono adiacenti orizzontalmente, verticalmente o diagonalmente. Il programma utilizza un algoritmo di ricerca in profondità (DFS, Depth First Search) per identificare e contare i giacimenti petroliferi.
+Il progetto sviluppato consiste in un programma C++ per determinare il numero di giacimenti petroliferi in una regione rettangolare di terreno. La regione è divisa in appezzamenti quadrati, e un appezzamento può contenere petrolio. Se lo contiene, è indicato con '@', altrimenti con '*'. Due appezzamenti contenenti petrolio sono considerati parte dello stesso giacimento se sono adiacenti orizzontalmente, verticalmente o diagonalmente. Il programma utilizza un algoritmo di ricerca in profondità (DFS, Depth First Search) per identificare e contare i giacimenti petroliferi.
 
 ## Soluzione Proposta
 
 Il programma è composto dai seguenti componenti principali:
 
-1. **Lettura e creazione della matrice**: La matrice che rappresenta la regione del terreno viene letta da un file d'esempio, creata casualmente o letta da un file specificato dall'utente.
+1. **Lettura e creazione della matrice**: La matrice che rappresenta la regione del terreno viene letta da un file d'esempio, creata casualmente o letta da un file specificato dall'utente. Per semplificare il processo di lettura, la matrice viene creata sostituendo '*' con 0, e '@' con 1.
 2. **Rappresentazione del grafo**: La matrice viene convertita in un grafo non orientato in cui ogni nodo rappresenta un appezzamento contenente petrolio e ogni albero un giacimento.
 3. **Algoritmo DFS**: Viene utilizzato per esplorare il grafo e visitare i componenti adiacenti tra loro. Una volta identificato un albero, passerà a cercare il nodo successivo non ancora visitato per effettuare un'altra ricerca in modo da esplorare e contare tutti i diversi giacimenti petroliferi.
 
@@ -96,6 +96,6 @@ Applicando questo teorema al nostro problema, la funzione `dfs` visita ricorsiva
 
 Il programma che abbiamo sviluppato permette di determinare con efficacia il numero di giacimenti petroliferi in una regione di terreno. Abbiamo utilizzato algoritmi di base di teoria dei grafi per risolvere il problema in modo efficiente sia in termini di tempo che di spazio.
 
-L'uso della rappresentazione grafica e dell'algoritmo DFS ci ha permesso di creare una soluzione robusta e scalabile, capace di gestire anche le dimensioni massime del problema (fino a una griglia di 100x100 appezzamenti).
+L'uso dell'algoritmo DFS ci ha permesso di creare una soluzione robusta e scalabile, capace di gestire anche le dimensioni massime del problema (fino a una griglia di 100x100 appezzamenti).
 
 A livello personale, questo progetto è stato molto utile per approfondire la nostra comprensione e applicazione degli algoritmi e delle strutture dati. Inoltre, lavorare in gruppo ci ha permesso di migliorare e di affinare le nostre capacità di collaborazione e risoluzione dei problemi.
