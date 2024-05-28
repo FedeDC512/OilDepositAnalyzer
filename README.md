@@ -19,7 +19,9 @@ _**A cura di [@zAlweNy26](https://github.com/zAlweNy26) e [@FedeDC512](https://g
 Per Windows:
 
 ```bash
+cd src
 g++ -o main.exe main.cpp utils/utils.h utils/utils.cpp graph/graph.h graph/graph.cpp dfs/dfs.h dfs/dfs.cpp
+main.exe
 ```
 
 Per Linux / MacOS:
