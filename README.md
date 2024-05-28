@@ -21,7 +21,7 @@ Per Windows:
 ```bash
 cd src
 g++ -o main.exe main.cpp utils/utils.h utils/utils.cpp graph/graph.h graph/graph.cpp dfs/dfs.h dfs/dfs.cpp
-main.exe
+./main
 ```
 
 Per Linux / MacOS:
