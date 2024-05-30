@@ -32,7 +32,7 @@ int DepthFirstSearch::findTrees() {
             if (neighbours == 0) {
                 cout << i;
             } else {
-                dfs(graph, i);
+                dfs(i);
             }
             cout << endl; */
         }

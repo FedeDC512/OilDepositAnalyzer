@@ -90,7 +90,6 @@ Applicando questo teorema al nostro problema, la funzione `dfs` visita ricorsiva
 
 - **Matrice bidimensionale**: Utilizzata inizialmente per rappresentare la griglia di terreno.
 - **Grafo Non Orientato**: Implementato utilizzando una lista di adiacenza per rappresentare le connessioni tra i nodi.
-- **Depth First Search (DFS)**: Utilizzato per esplorare i grafi e marcare i nodi visitati.
 
 ## Conclusioni
 
