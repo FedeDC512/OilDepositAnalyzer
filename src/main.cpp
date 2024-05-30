@@ -65,7 +65,9 @@ int main() {
     printMatrix(mat);
 
     Graph graph(mat);
-    //graph.print();
+    cout << endl;
+    graph.print(); // Stampa la lista di adiacenza
+    cout << endl;
 
     DepthFirstSearch dfs(graph);
     int trees = dfs.findTrees();

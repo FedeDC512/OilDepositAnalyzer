@@ -7,7 +7,7 @@ void DepthFirstSearch::dfs(int id) {
     marked[id] = true; // Marca il nodo in cui ci troviamo come visitato
     for (int node : graph.getNeighbours(id)) { // Per ogni nodo adiacente al nodo corrente
         if (!marked[node]) { // Se il nodo non è stato visitato, allora lo visita
-            // cout << id << " -> " << node << ", ";
+            cout << id << " -> " << node << ", "; // Stampa percorso del DFS (1/3)
             dfs(node);
         }
     }
@@ -23,18 +23,16 @@ int DepthFirstSearch::findTrees() {
     for (int i = 0; i < graph.size(); i++) {
         if (!marked[i]) {
             trees++;
-            // cout << "Albero " << trees << " : ";
+            cout << "Albero " << trees << " : ";
 
-            dfs(i);
-
-            /* Nella stampa all'interno di dfs() non vengono considerati i nodi senza vicini percio' li stampa qui con un if
+            //Nella stampa all'interno di dfs() non vengono considerati i nodi senza vicini percio' li stampa qui con un if
             int neighbours = graph.getNeighbours(i).size();
             if (neighbours == 0) {
-                cout << i;
+                cout << i; // Stampa percorso del DFS (2/3)
             } else {
                 dfs(i);
             }
-            cout << endl; */
+            cout << endl; // Stampa percorso del DFS (3/3)
         }
     }
     return trees;
